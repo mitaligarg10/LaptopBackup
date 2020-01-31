@@ -1,0 +1,12 @@
+The Optional Class:
+
+As every Java Programmer is familiar with NullPointerException. It can crash your code. And it is very hard to avoid it without using too many null checks.
+
+Java 8 has introduced a new class Optional in java.util package.
+
+The main advantage of this new construct is that No more too many null checks and NullPointerException. By using Optional, we can specify alternate values to return or alternate code to run. This makes the code more readable because the facts which were hidden are now visible to the developer.
+
+
+Optional.ofNullable() method returns a Non-empty Optional if a value present in the given object. Otherwise returns empty Optional.
+Optional.of() method returns an Optional with the specified present not null value.
+Optionaal.empty() method is useful to create an empty Optional object.

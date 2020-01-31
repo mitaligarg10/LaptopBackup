@@ -1,0 +1,6 @@
+To change the permission of the folder
+--------------------------------------
+
+1. cd..
+2. sudo chmod 777 -R my-app  --> is the name of the folder.
+                     ------

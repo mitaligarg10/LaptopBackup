@@ -1,0 +1,104 @@
+1. To dockerise mongo, we need to pull it from dockerhub.com
+   -- sudo docker pull mongo
+
+2. To Run the mongo image in a container.
+   -- sudo docker run -d --name test-mongo mongo
+
+3. Use Mongo client to create a collection and save a document in
+   MongoDB.
+   -- sudo docker exec -it test-mongo bash
+   Now, Inside bash:
+  1. mongo
+  2. show dbs;
+  3. use database_name;
+  4. db.createCollection("collection_name")
+  5. db.employee.insert({"name":"ABC"})
+  6. db.collection_name.find().pretty();
+
+4.Restart the docker container where Mongo
+  is running.
+  
+  Firstly will check whether it is Up or not by giving command
+  -- sudo docker ps
+
+  Secondly if it is Up then we need to stop it by giving command
+  -- sudo docker rm -f id/name
+ 
+  Thirdly will check the status again
+  -- sudo docker ps  or sudo docker ps -a
+  
+  Fourthly will get to know it got removed. To restart it, will give command
+  -- sudo docker run -d --name test-mongo mongo
+
+  Fifthly we can again check the status
+  -- sudo docker ps or sudo docker ps -a
+
+5. Use Mongo client to query and validate the data inserted in Step 2
+   
+   First will go for port mapping
+   -- sudo docker run -d --name=test-mongo -p 6036:27017 mongo:latest
+
+   It will throw an error that test-mongo already running rename it or remove it to use the same container name
+
+   Then,
+   -- sudo docker rm -f id/name 
+
+   Again execute the port mapping command it will work now,
+c
+
+   Secondly we can go for volume mapping by giving command
+   -- sudo docker run -d --name=test-mongo -v /home/mitali/data/mongo:/data/db -d mongo
+
+   It will throw an error that test-mongo already running rename it or remove it to use the same container name
+
+   Then,
+   -- sudo docker rm -f id/name 
+
+   Again execute the volume mapping command it will work now,
+   -- sudo docker run -d --name=test-mongo -v /home/mitali/data/mongo:/data/db -d mongo
+
+   Now,
+   -- sudo docker exec -it test-mongo bash
+
+   Now Again, Inside bash:
+   1. mongo
+   2. show dbs;
+   3. use database_name;
+   4. db.createCollection("collection_name")
+   5. db.employee.insert({"name":"ABC"})
+   6. db.collection_name.find().pretty();
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+1: Ensure MongoDB is running in Docker
+   -- we have already done that above.
+
+2. Package the SpringBoot application
+   -- mvn clean compile package -DskipTests
+
+3. Write the Dockerfile
+   -- FROM openjdk:11
+      ADD ./target/MuzixApplication-0.0.1-SNAPSHOT.jar /usr/src/MuzixApplication-0.0.1-SNAPSHOT.jar
+      WORKDIR usr/src
+      ENTRYPOINT ["java","-jar", "MuzixApplication-0.0.1-SNAPSHOT.jar"]
+
+4. Build the image
+   -- sudo docker build -t nameoftheImage .
+
+   to check the images
+   -- sudo docker images
+
+5. Run the application in the container.
+   sudo docker run  -d -p 8080:8080 test-muzix2:2.2 or
+   sudo docker run -d --name muzix-app -p 8080:8080 --link docker-mongo  muzix-docker
+   
+-----------------------------------------------------------------------------------------------------------------------------------------------
+                                  Docker Compose Commands:
+
+                                  1. sudo docker-compose up
+                                  2.sudo docker compose down
+   
+
+
+
+
